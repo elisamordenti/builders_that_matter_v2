@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import json
 
 app = Flask(__name__)
@@ -171,6 +171,10 @@ STARTUPS = [
         "website": "https://salupay.it/"
     }
 ]
+
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory('static', path)
 
 @app.route('/')
 def index():
