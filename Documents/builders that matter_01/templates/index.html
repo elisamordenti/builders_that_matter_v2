@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Builders That Matter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1 class="main-title">builders that matter</h1>
+        </header>
+
+        <nav class="section-navigation">
+            <a href="#about" class="section-link" data-section="about">About Me</a>
+            <a href="#thesis" class="section-link" data-section="thesis">Thesis</a>
+            <a href="#collection" class="section-link active" data-section="collection">Collection</a>
+        </nav>
+
+        <p class="curated-phrase">A curated selection of early stage builders in Europe</p>
+
+        <section class="content-section" id="about" style="display: none;">
+            <div class="section-content">
+                <a href="https://personal-website1-vert.vercel.app/" target="_blank" rel="noopener noreferrer" class="about-button">HERE</a>
+            </div>
+            <div class="section-divider"></div>
+        </section>
+
+        <section class="content-section" id="thesis" style="display: none;">
+            <div class="section-content">
+                <p class="thesis-text">{{ thesis }}</p>
+            </div>
+            <div class="section-divider"></div>
+        </section>
+
+        <section class="content-section portfolio-section" id="collection" style="display: block;">
+            <div class="collection-header">
+                <h2 class="collection-title">Collection (<span id="startup-count">{{ startups|length }}</span>)</h2>
+                <div class="header-controls">
+                    <div class="view-toggle-icons">
+                        <button class="view-icon-btn" data-view="grid" id="grid-btn" title="Grid View">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="5" height="5" rx="0.5"/>
+                                <rect x="12" y="3" width="5" height="5" rx="0.5"/>
+                                <rect x="3" y="12" width="5" height="5" rx="0.5"/>
+                                <rect x="12" y="12" width="5" height="5" rx="0.5"/>
+                            </svg>
+                        </button>
+                        <button class="view-icon-btn active" data-view="table" id="table-btn" title="Table View">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 3h14v14H3z"/>
+                                <path d="M3 7h14M7 3v14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="suggest-btn" id="suggest-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M8 1v14M1 8h14"/>
+                        </svg>
+                        Suggest a Startup
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-container" id="filters-container" style="display: flex;">
+                <div class="filter-group">
+                    <label class="filter-label">Stage</label>
+                    <select class="filter-select" id="filter-stage">
+                        <option value="">All Stages</option>
+                        <option value="Pre-Seed">Pre-Seed</option>
+                        <option value="Seed">Seed</option>
+                        <option value="Series A">Series A</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Sector</label>
+                    <select class="filter-select" id="filter-sector">
+                        <option value="">All Sectors</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Location</label>
+                    <select class="filter-select" id="filter-location">
+                        <option value="">All Locations</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Sort</label>
+                    <select class="filter-select" id="sort-order">
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid View -->
+            <div class="startups-grid" id="grid-view" style="display: none;">
+                {% for startup in startups %}
+                <div class="startup-card" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                    <div class="startup-header">
+                        <h3 class="startup-name">{{ startup.name }}</h3>
+                        <span class="startup-stage" data-stage="{{ startup.stage }}">{{ startup.stage }}</span>
+                    </div>
+                    <p class="startup-description">{{ startup.description }}</p>
+                    <div class="startup-meta">
+                        <span class="startup-sector">{{ startup.sector }}</span>
+                        <span class="startup-location">{{ startup.location }}</span>
+                    </div>
+                    {% if startup.website %}
+                    <a href="{{ startup.website }}" target="_blank" rel="noopener noreferrer" class="startup-link">Visit Website</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Table View -->
+            <div class="startups-table-container" id="table-view" style="display: block;">
+                <table class="startups-table">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th class="narrow-column">Stage</th>
+                            <th class="narrow-column">Sector</th>
+                            <th class="narrow-column">Location</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {% for startup in startups %}
+                        {% set location_parts = startup.location.split(', ') %}
+                        {% set country = location_parts[-1] if location_parts|length > 1 else startup.location %}
+                        <tr data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                            <td class="company-cell">
+                                <div class="company-name-link">
+                                    <span class="company-name">{{ startup.name }}</span>
+                                    {% if startup.website %}
+                                    <a href="{{ startup.website }}" target="_blank" rel="noopener noreferrer" class="table-link">→</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td><span class="table-stage" data-stage="{{ startup.stage }}">{{ startup.stage }}</span></td>
+                            <td><span class="table-badge">{{ startup.sector }}</span></td>
+                            <td>{{ country }}</td>
+                            <td>
+                                <div class="description-cell" title="{{ startup.description }}">
+                                    <span class="description-text">{{ startup.description }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="section-divider"></div>
+        </section>
+
+        <footer class="main-footer">
+            <p>If you love startups, innovation or investing, let's have a chat</p>
+            <a href="https://www.linkedin.com/in/elisa-mordenti/" target="_blank" rel="noopener noreferrer" class="footer-linkedin">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+            </a>
+        </footer>
+    </div>
+
+    <!-- Suggest Modal -->
+    <div class="modal" id="suggest-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h2>Suggest a Startup</h2>
+            <form id="suggest-form">
+                <div class="form-group">
+                    <label for="startup-name">Startup Name</label>
+                    <input type="text" id="startup-name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="startup-link">Startup Link (optional)</label>
+                    <input type="url" id="startup-link" name="link" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label for="message">Why would you suggest it? Or do you have anything else you prefer to share? (optional)</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Tell me about the startup..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email (optional)</label>
+                    <input type="email" id="contact-email" name="email" placeholder="your.email@example.com">
+                </div>
+                <p class="linkedin-note">If you prefer, connect with me on <a href="https://www.linkedin.com/in/elisa-mordenti/" target="_blank" class="linkedin-link">LinkedIn</a>.</p>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Section navigation
+        const sectionLinks = document.querySelectorAll('.section-link');
+        const sections = document.querySelectorAll('.content-section');
+
+        sectionLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Update active link
+                sectionLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show/hide sections
+                sections.forEach(section => {
+                    if (section.id === targetSection) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // View toggle functionality
+        const gridBtn = document.getElementById('grid-btn');
+        const tableBtn = document.getElementById('table-btn');
+        const gridView = document.getElementById('grid-view');
+        const tableView = document.getElementById('table-view');
+        const filtersContainer = document.getElementById('filters-container');
+
+        gridBtn.addEventListener('click', () => {
+            gridView.style.display = 'grid';
+            tableView.style.display = 'none';
+            filtersContainer.style.display = 'none';
+            gridBtn.classList.add('active');
+            tableBtn.classList.remove('active');
+        });
+
+        tableBtn.addEventListener('click', () => {
+            gridView.style.display = 'none';
+            tableView.style.display = 'block';
+            filtersContainer.style.display = 'flex';
+            tableBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        });
+
+        // Set table as default on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            gridView.style.display = 'none';
+            tableView.style.display = 'block';
+            filtersContainer.style.display = 'flex';
+        });
+
+        // Filter and sort functionality
+        const startups = {{ startups|tojson }};
+        let filteredStartups = [...startups];
+
+        // Populate filter options
+        const sectors = [...new Set(startups.map(s => s.sector))].sort();
+        // Extract countries from locations
+        const countries = [...new Set(startups.map(s => {
+            const parts = s.location.split(', ');
+            return parts.length > 1 ? parts[parts.length - 1] : s.location;
+        }))].sort();
+        
+        const sectorSelect = document.getElementById('filter-sector');
+        const locationSelect = document.getElementById('filter-location');
+        
+        sectors.forEach(sector => {
+            const option = document.createElement('option');
+            option.value = sector;
+            option.textContent = sector;
+            sectorSelect.appendChild(option);
+        });
+        
+        countries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            locationSelect.appendChild(option);
+        });
+
+        function filterAndSort() {
+            const stageFilter = document.getElementById('filter-stage').value;
+            const sectorFilter = document.getElementById('filter-sector').value;
+            const locationFilter = document.getElementById('filter-location').value;
+            const sortOrder = document.getElementById('sort-order').value;
+
+            // Filter
+            filteredStartups = startups.filter(startup => {
+                const locationParts = startup.location.split(', ');
+                const country = locationParts.length > 1 ? locationParts[locationParts.length - 1] : startup.location;
+                
+                return (!stageFilter || startup.stage === stageFilter) &&
+                       (!sectorFilter || startup.sector === sectorFilter) &&
+                       (!locationFilter || country === locationFilter);
+            });
+
+            // Sort
+            filteredStartups.sort((a, b) => {
+                if (sortOrder === 'az') {
+                    return a.name.localeCompare(b.name);
+                } else {
+                    return b.name.localeCompare(a.name);
+                }
+            });
+
+            // Update count
+            document.getElementById('startup-count').textContent = filteredStartups.length;
+
+            // Update grid view
+            const gridCards = document.querySelectorAll('.startup-card');
+            gridCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const isVisible = filteredStartups.some(s => s.name === name);
+                card.style.display = isVisible ? 'flex' : 'none';
+            });
+
+            // Update table view - reorder rows based on sorted order
+            const tableBody = document.getElementById('table-body');
+            const allRows = Array.from(document.querySelectorAll('#table-body tr'));
+            
+            // Create a map of rows by startup name (store before clearing)
+            const rowMap = new Map();
+            allRows.forEach(row => {
+                const name = row.getAttribute('data-name');
+                if (name) {
+                    // Clone the row to preserve it
+                    rowMap.set(name, row.cloneNode(true));
+                }
+            });
+            
+            // Clear and rebuild in sorted order
+            tableBody.innerHTML = '';
+            filteredStartups.forEach(startup => {
+                const row = rowMap.get(startup.name);
+                if (row) {
+                    tableBody.appendChild(row);
+                }
+            });
+        }
+
+        document.getElementById('filter-stage').addEventListener('change', filterAndSort);
+        document.getElementById('filter-sector').addEventListener('change', filterAndSort);
+        document.getElementById('filter-location').addEventListener('change', filterAndSort);
+        document.getElementById('sort-order').addEventListener('change', filterAndSort);
+
+        // Suggest modal
+        const suggestBtn = document.getElementById('suggest-btn');
+        const suggestModal = document.getElementById('suggest-modal');
+        const modalClose = document.getElementById('modal-close');
+        const suggestForm = document.getElementById('suggest-form');
+
+        suggestBtn.addEventListener('click', () => {
+            suggestModal.style.display = 'flex';
+        });
+
+        modalClose.addEventListener('click', () => {
+            suggestModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === suggestModal) {
+                suggestModal.style.display = 'none';
+            }
+        });
+
+        suggestForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('startup-name').value,
+                link: document.getElementById('startup-link').value,
+                email: document.getElementById('contact-email').value,
+                message: document.getElementById('message').value
+            };
+            // Here you would typically send the data to a backend endpoint
+            console.log('Form data:', formData);
+            alert('Thank you for your suggestion! We\'ll review it soon.');
+            suggestModal.style.display = 'none';
+            suggestForm.reset();
+        });
+    </script>
+</body>
+</html>
+
