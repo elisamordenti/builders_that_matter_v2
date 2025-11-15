@@ -151,7 +151,7 @@ STARTUPS = [
         "website": "https://kiutra.com/"
     },
     {
-        "name": "Xelerit",
+        "name": "Forgis",
         "tagline": "",
         "description": "AI-powered Agentic Development Environment (ADE) for industrial automation, streamlining the entire workflow from hardware integration and code generation to testing and deployment.",
         "sector": "AI",
