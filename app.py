@@ -169,6 +169,16 @@ STARTUPS = [
         "year": 2024,
         "location": "Italy",
         "website": "https://salupay.it/"
+    },
+    {
+        "name": "Lyceum",
+        "tagline": "",
+        "description": "Lyceum allows to simplify and optimize the process of training AI models by offering one-click GPU deployment with automatic selection of ideal infrastructure based on your work.",
+        "sector": "IT services",
+        "stage": "Pre-Seed",
+        "year": 2025,
+        "location": "Germany",
+        "website": "https://lyceum.technology/"
     }
 ]
 
