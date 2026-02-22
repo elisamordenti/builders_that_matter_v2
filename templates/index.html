@@ -231,7 +231,7 @@
         gridBtn.addEventListener('click', () => {
             gridView.style.display = 'grid';
             tableView.style.display = 'none';
-            filtersContainer.style.display = 'none';
+            filtersContainer.style.display = 'flex';
             gridBtn.classList.add('active');
             tableBtn.classList.remove('active');
         });
@@ -280,6 +280,15 @@
             locationSelect.appendChild(option);
         });
 
+        // Build row map once on page load (when all rows exist in DOM) - needed for table filter/sort
+        const fullRowMap = new Map();
+        document.querySelectorAll('#table-body tr').forEach(row => {
+            const name = row.getAttribute('data-name');
+            if (name) {
+                fullRowMap.set(name, row.cloneNode(true));
+            }
+        });
+
         function filterAndSort() {
             const stageFilter = document.getElementById('filter-stage').value;
             const sectorFilter = document.getElementById('filter-sector').value;
@@ -316,24 +325,11 @@
                 card.style.display = isVisible ? 'flex' : 'none';
             });
 
-            // Update table view - reorder rows based on sorted order
+            // Update table view - reorder rows based on sorted order (use fullRowMap built at page load)
             const tableBody = document.getElementById('table-body');
-            const allRows = Array.from(document.querySelectorAll('#table-body tr'));
-            
-            // Create a map of rows by startup name (store before clearing)
-            const rowMap = new Map();
-            allRows.forEach(row => {
-                const name = row.getAttribute('data-name');
-                if (name) {
-                    // Clone the row to preserve it
-                    rowMap.set(name, row.cloneNode(true));
-                }
-            });
-            
-            // Clear and rebuild in sorted order
             tableBody.innerHTML = '';
             filteredStartups.forEach(startup => {
-                const row = rowMap.get(startup.name);
+                const row = fullRowMap.get(startup.name);
                 if (row) {
                     tableBody.appendChild(row);
                 }
