@@ -161,24 +161,54 @@ STARTUPS = [
         "website": "https://www.xelerit-robotics.com/"
     },
     {
-        "name": "Salupay",
-        "tagline": "",
-        "description": "Saas solution designed to digitalize, streamline, and automate the administrative and financial workflows in private healthcare facilities",
-        "sector": "Insurtech",
-        "stage": "Seed",
-        "year": 2024,
-        "location": "Italy",
-        "website": "https://salupay.it/"
-    },
-    {
         "name": "Lyceum",
         "tagline": "",
         "description": "Lyceum allows to simplify and optimize the process of training AI models by offering one-click GPU deployment with automatic selection of ideal infrastructure based on your work.",
-        "sector": "IT services",
+        "sector": "AI Infrastructure",
         "stage": "Pre-Seed",
         "year": 2025,
         "location": "Germany",
         "website": "https://lyceum.technology/"
+    },
+    {
+        "name": "Unbound Potential",
+        "tagline": "",
+        "description": "Unbound Potential builds membrane-free batteries to enable scalable, cost-efficient energy storage for renewable power, with a simplified design suited for industrial, logistics, and off-grid applications.",
+        "sector": "Energy/Climate",
+        "stage": "Pre-Seed",
+        "year": 2023,
+        "location": "Switzerland",
+        "website": "https://www.unbound-potential.com/"
+    },
+    {
+        "name": "SE3 Labs",
+        "tagline": "",
+        "description": "SE3 builds AI systems that convert unstructured visual data into queryable insights, enabling real-time understanding of complex physical environments across sectors such as defense, infrastructure, construction, and industrial settings.",
+        "sector": "AI Infrastructure",
+        "stage": "Seed",
+        "year": 2023,
+        "location": "Germany",
+        "website": "https://www.se3.ai/"
+    },
+    {
+        "name": "Lentil Robotics",
+        "tagline": "",
+        "description": "Lentil Robotics develops robot vision systems for manufacturing, enabling automation of tasks involving variable object positions and orientations with fast deployment.",
+        "sector": "Manufacturing",
+        "stage": "Pre-Seed",
+        "year": 2026,
+        "location": "United Kingdom",
+        "website": "https://www.lentilrobotics.com/"
+    },
+    {
+        "name": "Vaire Computing",
+        "tagline": "",
+        "description": "Vaire Computing builds energy-efficient chips using a new computing approach that reduces heat and power consumption, addressing the growing energy demands of AI and large-scale computing.",
+        "sector": "Computing",
+        "stage": "Seed",
+        "year": 2021,
+        "location": "United Kingdom",
+        "website": "https://vaire.co/"
     }
 ]
 
