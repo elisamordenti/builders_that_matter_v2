@@ -108,12 +108,53 @@ body {
     padding: 2rem 0;
 }
 
-.section-text,
-.thesis-text {
+.section-text {
     font-size: 1.0625rem;
     line-height: 1.8;
     color: var(--text-secondary);
     font-weight: 400;
+}
+
+/* Thesis: title top-left, body below (site palette) */
+.thesis-section-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 2rem 0 1rem;
+}
+
+.thesis-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.thesis-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0 0 1.125rem;
+}
+
+.thesis-body {
+    width: 100%;
+    min-width: 0;
+}
+
+.thesis-body-text {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--text-color);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.thesis-body-text:last-child {
+    margin-bottom: 0;
 }
 
 .about-button {

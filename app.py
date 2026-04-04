@@ -3,10 +3,26 @@ import json
 
 app = Flask(__name__)
 
-# Investment thesis paragraph
-INVESTMENT_THESIS = """
-I am curating a pipeline of early-stage tech ventures in Europe whose outlier founders have the potential to shape relevant industries (e.g., health, manufacturing). Despite privileging B2B software, I am refining my analysis around hardware know-how, exploring EU potential in creating the infrastructure for a world moving at high speed.
-"""
+# Thesis section (see templates/index.html)
+THESIS = {
+    "heading": "WHY THIS EXISTS",
+    "paragraphs": [
+        (
+            "Builders That Matter is an independent selection of early-stage startups across Europe, "
+            "built around two purposes. First, to shine a light on the ambitious entrepreneurial talent "
+            "this continent produces, still not loud enough. Second, a genuine belief that the most important "
+            "technology isn't necessarily the most \"convenient\" - it's the kind rooted in hard science or "
+            "intricate problems that advance the human condition."
+        ),
+        (
+            "I've always been drawn to complex problems and an avid reader of research papers across the "
+            "most varied fields (e.g., from AI memory, sustainable textiles to organs-on-a-chip). "
+            "Builders That Matter is my way to fuel that curiosity connecting with driven founders or more "
+            "scientific future founders. And, maybe, a small consolation for never having pursued a more "
+            "scientific degree."
+        ),
+    ],
+}
 
 # Startup data - European early-stage startups
 STARTUPS = [
@@ -218,7 +234,7 @@ def serve_static(path):
 
 @app.route('/')
 def index():
-    return render_template('index.html', startups=STARTUPS, thesis=INVESTMENT_THESIS)
+    return render_template('index.html', startups=STARTUPS, thesis=THESIS)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

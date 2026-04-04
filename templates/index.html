@@ -30,9 +30,16 @@
             <div class="section-divider"></div>
         </section>
 
-        <section class="content-section" id="thesis" style="display: none;">
-            <div class="section-content">
-                <p class="thesis-text">{{ thesis }}</p>
+        <section class="content-section thesis-section" id="thesis" style="display: none;">
+            <div class="section-content thesis-section-inner">
+                <div class="thesis-block">
+                    <h2 class="thesis-title">{{ thesis.heading }}</h2>
+                    <div class="thesis-body">
+                        {% for paragraph in thesis.paragraphs %}
+                        <p class="thesis-body-text">{{ paragraph }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
             <div class="section-divider"></div>
         </section>
