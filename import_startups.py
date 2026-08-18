@@ -5,6 +5,9 @@ You can export your Notion page as CSV and use this script to format the data.
 
 import csv
 import json
+from pathlib import Path
+
+DATA_FILE = Path(__file__).parent / "data" / "startups.json"
 
 def import_from_csv(csv_file_path):
     """
@@ -35,46 +38,29 @@ def import_from_csv(csv_file_path):
         print(f"Error reading CSV: {e}")
         return []
 
-def format_for_app_py(startups):
+def write_to_data_file(startups):
     """
-    Format startups list as Python code for app.py
+    Write the startups list to data/startups.json.
     """
-    output = "STARTUPS = [\n"
-    for i, startup in enumerate(startups):
-        output += "    {\n"
-        output += f'        "name": "{startup["name"]}",\n'
-        if startup.get("tagline"):
-            output += f'        "tagline": "{startup["tagline"]}",\n'
-        output += f'        "description": "{startup["description"]}",\n'
-        output += f'        "sector": "{startup["sector"]}",\n'
-        output += f'        "stage": "{startup["stage"]}",\n'
-        output += f'        "year": {startup["year"]},\n'
-        output += f'        "location": "{startup["location"]}",\n'
-        output += f'        "website": "{startup["website"]}"\n'
-        output += "    }"
-        if i < len(startups) - 1:
-            output += ","
-        output += "\n"
-    output += "]"
-    return output
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(startups, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
 # Example usage:
 # 1. Export your Notion page as CSV
 # 2. Run: python import_startups.py
-# 3. Copy the output and paste into app.py
+# 3. data/startups.json is updated automatically - restart the app to see changes
 
 if __name__ == "__main__":
     # Update this path to your exported CSV file
     csv_path = "startups.csv"
-    
+
     print("Importing startups from CSV...")
     startups = import_from_csv(csv_path)
-    
+
     if startups:
-        print(f"\nFound {len(startups)} startups!\n")
-        print("=" * 50)
-        print("Copy this code into app.py (replace the STARTUPS list):\n")
-        print(format_for_app_py(startups))
+        write_to_data_file(startups)
+        print(f"\nSaved {len(startups)} startups to {DATA_FILE}")
     else:
         print("No startups found. Please check your CSV file path and format.")
 

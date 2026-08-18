@@ -35,11 +35,19 @@ python app.py
 
 ## Customization
 
+All content lives in `data/` as JSON, separate from the app logic in `app.py`. Restart the app after editing to see changes.
+
 ### Investment Thesis
-Edit the `INVESTMENT_THESIS` variable in `app.py` to update the investment thesis paragraph.
+Edit `data/thesis.json` to update the heading and paragraphs:
+```json
+{
+  "heading": "WHY THIS EXISTS",
+  "paragraphs": ["First paragraph...", "Second paragraph..."]
+}
+```
 
 ### Startup Data
-Edit the `STARTUPS` list in `app.py` to add, remove, or modify startup entries. Each startup should have:
+Edit `data/startups.json` to add, remove, or modify startup entries. Each entry should have:
 - `name`: Company name
 - `tagline`: Short tagline
 - `description`: Detailed description
@@ -48,6 +56,8 @@ Edit the `STARTUPS` list in `app.py` to add, remove, or modify startup entries. 
 - `year`: Year founded or invested
 - `location`: City and country
 - `website`: Company website URL (optional)
+
+Alternatively, run `python import_startups.py` to import entries from a `startups.csv` file (e.g. exported from Notion) — it writes straight to `data/startups.json`.
 
 ## Deployment
 
