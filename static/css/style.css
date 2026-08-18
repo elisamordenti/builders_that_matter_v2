@@ -5,15 +5,15 @@
 }
 
 :root {
-    --bg-color: #fafaf9;
+    --bg-color: #ffffff;
     --text-color: #1c1c1c;
     --text-secondary: #525252;
     --accent-color: #3b82f6;
     --accent-hover: #2563eb;
     --border-color: #e5e5e5;
     --card-bg: #ffffff;
-    --table-header-bg: #f9fafb;
-    --table-hover: #f5f5f4;
+    --table-header-bg: #fafafa;
+    --table-hover: #f5f5f5;
     --divider-color: #e5e5e5;
 }
 
@@ -36,12 +36,12 @@ body {
 /* Header */
 .main-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding-top: 3rem;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
 }
 
 .main-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 300;
     letter-spacing: -0.03em;
     color: var(--text-color);
@@ -53,8 +53,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 3rem;
-    padding: 2rem 0;
-    margin-bottom: 3rem;
+    padding: 1.25rem 0;
+    margin-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -92,8 +92,8 @@ body {
     color: var(--text-secondary);
     font-weight: 400;
     font-style: italic;
-    margin-bottom: 3rem;
-    padding-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
 }
 
 /* Content Sections */
@@ -304,27 +304,26 @@ body {
     outline: none;
 }
 
-/* Grid View - Smaller Cards */
+/* Grid View - hairline-divided wall, not boxed cards */
 .startups-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 1px;
+    background: var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .startup-card {
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
     padding: 1.5rem;
-    transition: all 0.3s ease;
+    transition: background 0.2s ease;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
 }
 
 .startup-card:hover {
-    border-color: var(--text-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: var(--table-hover);
 }
 
 .startup-header {
@@ -420,7 +419,8 @@ body {
     width: 100%;
     border-collapse: collapse;
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .startups-table thead {
@@ -429,8 +429,8 @@ body {
 
 .startups-table th {
     text-align: left;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.8125rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--text-color);
     letter-spacing: 0.02em;
@@ -444,8 +444,8 @@ body {
 }
 
 .startups-table td {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8125rem;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
     vertical-align: top;
@@ -490,7 +490,7 @@ body {
 }
 
 .startups-table tbody tr:hover {
-    background: #f0f0f0;
+    background: var(--table-hover);
     cursor: pointer;
 }
 
@@ -501,13 +501,13 @@ body {
 .company-name {
     font-weight: 500;
     color: var(--text-color);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
 }
 
 .table-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background: var(--bg-color);
+    background: var(--table-hover);
     border-radius: 4px;
     font-size: 0.75rem;
 }
