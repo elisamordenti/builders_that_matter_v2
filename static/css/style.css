@@ -268,6 +268,7 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
+    align-items: end;
 }
 
 .filter-group {
@@ -276,6 +277,11 @@ body {
     gap: 0.5rem;
     flex: 1;
     min-width: 150px;
+}
+
+.filter-group-reset {
+    flex: 0 0 auto;
+    min-width: 0;
 }
 
 .filter-label {
@@ -302,6 +308,32 @@ body {
 .filter-select:focus {
     border-color: var(--text-color);
     outline: none;
+}
+
+.filter-reset-btn {
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.filter-reset-btn:hover {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.filter-reset-btn:active {
+    background: var(--border-color);
+    color: var(--text-color);
 }
 
 /* Grid View - hairline-divided wall, not boxed cards */
@@ -352,18 +384,18 @@ body {
 }
 
 .startup-stage[data-stage="Pre-Seed"] {
-    background: rgba(139, 92, 246, 0.12);
-    color: #8b5cf6;
+    background: rgba(169, 150, 206, 0.20);
+    color: #8267ab;
 }
 
 .startup-stage[data-stage="Seed"] {
-    background: rgba(59, 130, 246, 0.12);
-    color: #3b82f6;
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
 }
 
 .startup-stage[data-stage="Series A"] {
-    background: rgba(16, 185, 129, 0.12);
-    color: #10b981;
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
 }
 
 .startup-description {
@@ -395,10 +427,12 @@ body {
 }
 
 .startup-link {
-    color: var(--text-color);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-weight: 400;
-    font-size: 0.875rem;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: color 0.2s ease;
     align-self: flex-start;
     border-bottom: 1px solid transparent;
@@ -406,6 +440,7 @@ body {
 }
 
 .startup-link:hover {
+    color: var(--text-color);
     border-bottom-color: var(--text-color);
 }
 
@@ -419,8 +454,8 @@ body {
     width: 100%;
     border-collapse: collapse;
     background: var(--card-bg);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-top: 1.5px solid #c2c2c2;
+    border-bottom: 1.5px solid #c2c2c2;
 }
 
 .startups-table thead {
@@ -445,7 +480,7 @@ body {
 
 .startups-table td {
     padding: 0.75rem 1.25rem;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
     vertical-align: top;
@@ -479,10 +514,10 @@ body {
     -webkit-line-clamp: unset;
     position: absolute;
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: 1.5px solid #9a9a9a;
     padding: 0.75rem;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
     z-index: 10;
     max-width: 500px;
     white-space: normal;
@@ -522,18 +557,18 @@ body {
 }
 
 .table-stage[data-stage="Pre-Seed"] {
-    background: rgba(139, 92, 246, 0.12);
-    color: #8b5cf6;
+    background: rgba(169, 150, 206, 0.20);
+    color: #8267ab;
 }
 
 .table-stage[data-stage="Seed"] {
-    background: rgba(59, 130, 246, 0.12);
-    color: #3b82f6;
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
 }
 
 .table-stage[data-stage="Series A"] {
-    background: rgba(16, 185, 129, 0.12);
-    color: #10b981;
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
 }
 
 .table-link {
@@ -704,19 +739,44 @@ body {
 /* Footer */
 .main-footer {
     text-align: center;
-    padding: 4rem 0;
+    padding: 3.5rem 0 3rem;
     color: var(--text-secondary);
     font-size: 0.875rem;
     border-top: 1px solid var(--border-color);
     margin-top: 4rem;
+}
+
+.footer-lines {
     display: flex;
     flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: 1.75rem;
+}
+
+.footer-line {
+    font-style: italic;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.footer-contact-row {
+    display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.footer-contact-label {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .footer-linkedin {
-    color: var(--text-secondary);
+    color: #707070;
     transition: color 0.2s ease, transform 0.2s ease;
     display: inline-flex;
     align-items: center;
