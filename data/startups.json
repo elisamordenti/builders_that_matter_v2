@@ -6,7 +6,7 @@
     "sector": "Manufacturing",
     "stage": "Seed",
     "year": 2024,
-    "location": "Netherlands",
+    "location": "Belgium",
     "website": "https://www.resoniks.com/"
   },
   {
@@ -22,22 +22,12 @@
   {
     "name": "Stealth",
     "tagline": "",
-    "description": "App designed to track the treatment and symptoms of Parkinson's patients, breaking down barriers even for those without family support or specialized caregivers. The goal is to optimize the doctor-patient relationship and streamline the treatment journey.",
+    "description": "Track the treatment and symptoms of Parkinson's patients, breaking down barriers for those without family support or specialized caregivers. The goal is to optimize the doctor-patient relationship and streamline the treatment journey.",
     "sector": "Healthcare",
-    "stage": "Pre-Seed",
+    "stage": "No Funding",
     "year": 2024,
     "location": "Italy",
     "website": ""
-  },
-  {
-    "name": "Enapi",
-    "tagline": "",
-    "description": "ENAPI enables seamless connectivity for the EV charging industry by providing access to the entire EV charging ecosystem through a single API connection. The team is dedicated to building a secure and scalable infrastructure that drives the green mobility transition effectively for all stakeholders.",
-    "sector": "Mobility",
-    "stage": "Seed",
-    "year": 2024,
-    "location": "Germany",
-    "website": "https://www.enapi.com/"
   },
   {
     "name": "Fluid Wire Robotics",
@@ -52,32 +42,12 @@
   {
     "name": "Ephos",
     "tagline": "",
-    "description": "Ephos aims to build the essential infrastructure of the future of computing. It designs and manufacturers glass-based photonic chips which significantly reduce signal loss and energy consumption, making them ideal for advanced applications in quantum computing, artificial intelligence.",
+    "description": "Build the essential infrastructure of the future of computing. It designs and manufacturers glass-based photonic chips which significantly reduce signal loss and energy consumption, making them ideal for advanced applications in quantum computing, artificial intelligence.",
     "sector": "Computing",
     "stage": "Seed",
     "year": 2024,
     "location": "Italy",
     "website": "https://ephos.io/"
-  },
-  {
-    "name": "Veecle",
-    "tagline": "",
-    "description": "Veecle offers a subscription-based platform which decouples software applications from the hardware. OEMs and Tier 1 suppliers can design, test, and integrate software across the vehicle fleet without overhauling the existing infrastructures, for a seamless transition towards software-driven vehicles.",
-    "sector": "Mobility",
-    "stage": "Seed",
-    "year": 2024,
-    "location": "Germany",
-    "website": "https://www.veecle.io/"
-  },
-  {
-    "name": "Perciv",
-    "tagline": "",
-    "description": "Perciv offers an AI-driven radar perception software which converts commodity radar's inputs (or radar and camera combined) into LiDAR-comparable dense 3D point clouds, filling the gap in perception quality for automotive and robotic applications as a start.",
-    "sector": "Robotics",
-    "stage": "Seed",
-    "year": 2024,
-    "location": "Netherlands",
-    "website": "https://www.perciv.ai/"
   },
   {
     "name": "Beholder",
@@ -88,26 +58,6 @@
     "year": 2024,
     "location": "Estonia",
     "website": "https://beholder.earth/"
-  },
-  {
-    "name": "PartsCloud",
-    "tagline": "",
-    "description": "PartsCloud wants to streamline spare parts management for small and medium-sized enterprises (SMEs) in the mechanical engineering sector. It offers Logistics as a Service (LaaS) and Software as a Service (SaaS) to manage spare parts inventory, logistics, and fulfilment, improving operational efficiency and speed of delivery.",
-    "sector": "Manufacturing",
-    "stage": "Seed",
-    "year": 2024,
-    "location": "Germany",
-    "website": "https://partscloud.com/en"
-  },
-  {
-    "name": "Fleequid",
-    "tagline": "",
-    "description": "Marketplace that makes it fast and easy to buy or sell used buses through a transparent auction system. Whether looking for city, intercity, school, or touristic buses, Fleequid lets you browse hundreds of verified listings, set your own price, and finalize a purchase in 7 days.",
-    "sector": "Mobility",
-    "stage": "Seed",
-    "year": 2024,
-    "location": "Italy",
-    "website": "https://fleequid.com/en"
   },
   {
     "name": "Arsenale (Bio)",
@@ -186,7 +136,7 @@
     "sector": "Manufacturing",
     "stage": "Pre-Seed",
     "year": 2026,
-    "location": "United Kingdom",
+    "location": "Germany",
     "website": "https://www.lentilrobotics.com/"
   },
   {
@@ -198,5 +148,55 @@
     "year": 2021,
     "location": "United Kingdom",
     "website": "https://vaire.co/"
+  },
+  {
+    "name": "The Vydar Group",
+    "tagline": "",
+    "description": "Vydar develops GNSS-denied navigation technology for unmanned aerial vehicles, enabling autonomous UAV operations in locations without GPS access. Its hardware is manufactured in Europe and built to be cost-effective and adaptable across a wide range of deployment scenarios.",
+    "sector": "Defense Tech",
+    "stage": "Seed",
+    "year": 2024,
+    "location": "Netherlands",
+    "website": "https://vydar.eu"
+  },
+  {
+    "name": "Auryx",
+    "tagline": "",
+    "description": "Auryx is developing AI-powered technology that turns ordinary earbuds into health sensors, aiming to bring continuous health monitoring to a device people already wear every day.",
+    "sector": "Healthcare",
+    "stage": "Pre-Seed",
+    "year": 2025,
+    "location": "London",
+    "website": "https://www.auryx.ai/"
+  },
+  {
+    "name": "FixedGap",
+    "tagline": "",
+    "description": "Post-stroke rehabilitation monitoring platform that uses computer vision and machine learning to track patient movement through a standard webcam — no specialized hardware needed. It automatically generates clinical biomarkers and recovery reports for neurologists, giving continuous visibility between in-person visits.",
+    "sector": "Healthcare",
+    "stage": "No Funding",
+    "year": 2026,
+    "location": "Spain",
+    "website": "https://www.fixedgap.com/"
+  },
+  {
+    "name": "MINML",
+    "tagline": "",
+    "description": "MINML is an AI-integrated geoscience company that uses deep learning to de-risk and accelerate mineral exploration (an industry with failure rates that are high and costs that are increasing). It combines proprietary AI targeting to turn fragmented geoscience data into ranked, fully justified drill targets.",
+    "sector": "AI",
+    "stage": "Seed",
+    "year": 2025,
+    "location": "United Kingdom",
+    "website": "https://minml.co.uk/"
+  },
+  {
+    "name": "Stealth",
+    "tagline": "",
+    "description": "Developing a sustainable absorbent material made from agricultural waste to extract rare earth elements (REE) - even in small quantities - from e-waste.",
+    "sector": "AI",
+    "stage": "No Funding",
+    "year": 2026,
+    "location": "Germany",
+    "website": ""
   }
 ]
