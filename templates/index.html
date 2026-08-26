@@ -57,10 +57,13 @@
                                 <rect x="12" y="12" width="5" height="5" rx="0.5"/>
                             </svg>
                         </button>
-                        <button class="view-icon-btn active" data-view="table" id="table-btn" title="Table View">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <button class="view-icon-btn active" data-view="table" id="table-btn" title="Table / List View">
+                            <svg class="icon-table-desktop" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M3 3h14v14H3z"/>
                                 <path d="M3 7h14M7 3v14"/>
+                            </svg>
+                            <svg class="icon-list-mobile" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 5h12M4 10h12M4 15h12"/>
                             </svg>
                         </button>
                     </div>
@@ -113,7 +116,12 @@
                         <h3 class="startup-name">{{ startup.name }}</h3>
                         <span class="startup-stage" data-stage="{{ startup.stage }}">{{ startup.stage }}</span>
                     </div>
-                    <p class="startup-description">{{ startup.description }}</p>
+                    <div class="description-tap" role="button" tabindex="0" aria-expanded="false">
+                        <span class="read-more-indicator">Read description
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+                        </span>
+                        <p class="startup-description">{{ startup.description }}</p>
+                    </div>
                     <div class="startup-meta">
                         <span class="startup-sector">{{ startup.sector }}</span>
                         <span class="startup-location">{{ startup.location }}</span>
@@ -162,6 +170,27 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+
+            <!-- List View (mobile-only: compact "scan everything" alternative to the table) -->
+            <div class="startups-list-container" id="list-view" style="display: none;">
+                <div class="startups-list" id="list-body">
+                    {% for startup in startups %}
+                    <div class="list-row" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                        <div class="list-row-main">
+                            {% if startup.website %}
+                            <a href="{{ startup.website }}" target="_blank" rel="noopener noreferrer" class="list-row-name-link">{{ startup.name }}
+                                <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4h6v6"/><path d="M12 4L4 12"/></svg>
+                            </a>
+                            {% else %}
+                            <span class="list-row-name-link list-row-name-plain">{{ startup.name }}</span>
+                            {% endif %}
+                            <span class="list-row-stage" data-stage="{{ startup.stage }}" role="button" tabindex="0" aria-expanded="false">{{ startup.stage }}</span>
+                        </div>
+                        <p class="list-row-description">{{ startup.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="section-divider"></div>
         </section>
@@ -236,16 +265,24 @@
             });
         });
 
-        // View toggle functionality
+        // View toggle functionality.
+        // The second button means "Table" on desktop and "List" (compact,
+        // mobile-only scan view) on mobile - same button, width-aware target.
         const gridBtn = document.getElementById('grid-btn');
         const tableBtn = document.getElementById('table-btn');
         const gridView = document.getElementById('grid-view');
         const tableView = document.getElementById('table-view');
+        const listView = document.getElementById('list-view');
         const filtersContainer = document.getElementById('filters-container');
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
 
         gridBtn.addEventListener('click', () => {
             gridView.style.display = 'grid';
             tableView.style.display = 'none';
+            listView.style.display = 'none';
             filtersContainer.style.display = 'flex';
             gridBtn.classList.add('active');
             tableBtn.classList.remove('active');
@@ -253,24 +290,31 @@
 
         tableBtn.addEventListener('click', () => {
             gridView.style.display = 'none';
-            tableView.style.display = 'block';
             filtersContainer.style.display = 'flex';
             tableBtn.classList.add('active');
             gridBtn.classList.remove('active');
+            if (isMobile()) {
+                listView.style.display = 'block';
+                tableView.style.display = 'none';
+            } else {
+                tableView.style.display = 'block';
+                listView.style.display = 'none';
+            }
         });
 
-        // Default view: Grid on mobile (avoids a horizontally-scrolling table
-        // on small screens), Table on desktop.
+        // Default view: Grid (Cards) on mobile, Table on desktop.
         window.addEventListener('DOMContentLoaded', () => {
             filtersContainer.style.display = 'flex';
-            if (window.innerWidth <= 768) {
+            if (isMobile()) {
                 gridView.style.display = 'grid';
                 tableView.style.display = 'none';
+                listView.style.display = 'none';
                 gridBtn.classList.add('active');
                 tableBtn.classList.remove('active');
             } else {
                 gridView.style.display = 'none';
                 tableView.style.display = 'block';
+                listView.style.display = 'none';
                 tableBtn.classList.add('active');
                 gridBtn.classList.remove('active');
             }
@@ -345,7 +389,7 @@
             return `rgba(${r}, ${g}, ${b}, ${alpha})`;
         }
 
-        document.querySelectorAll('.startup-stage, .table-stage').forEach(el => {
+        document.querySelectorAll('.startup-stage, .table-stage, .list-row-stage').forEach(el => {
             const stage = el.getAttribute('data-stage');
             const color = stageColors[stage];
             if (color) {
@@ -399,6 +443,14 @@
                 card.style.display = isVisible ? 'flex' : 'none';
             });
 
+            // Update list view (mobile) - same simple show/hide as grid, no reordering
+            const listRows = document.querySelectorAll('.list-row');
+            listRows.forEach(row => {
+                const name = row.getAttribute('data-name');
+                const isVisible = filteredStartups.some(s => s.name === name);
+                row.style.display = isVisible ? 'block' : 'none';
+            });
+
             // Update table view - reorder rows based on sorted order (use fullRowMap built at page load)
             const tableBody = document.getElementById('table-body');
             tableBody.innerHTML = '';
@@ -421,6 +473,54 @@
             document.getElementById('filter-location').value = '';
             document.getElementById('sort-order').value = 'az';
             filterAndSort();
+        });
+
+        // Tap-to-reveal descriptions in grid view (fixes: hover doesn't exist
+        // on touch). The whole description block is the tap target. Each
+        // card's state is independent - opening one never closes another.
+        function toggleDescription(tapArea) {
+            const desc = tapArea.querySelector('.startup-description');
+            const indicator = tapArea.querySelector('.read-more-indicator');
+            const expanded = tapArea.classList.toggle('expanded');
+            desc.classList.toggle('expanded', expanded);
+            tapArea.setAttribute('aria-expanded', String(expanded));
+            indicator.firstChild.textContent = expanded ? 'Hide description ' : 'Read description ';
+        }
+
+        gridView.addEventListener('click', (e) => {
+            const tapArea = e.target.closest('.description-tap');
+            if (!tapArea) return;
+            toggleDescription(tapArea);
+        });
+
+        gridView.addEventListener('keydown', (e) => {
+            const tapArea = e.target.closest('.description-tap');
+            if (!tapArea || (e.key !== 'Enter' && e.key !== ' ')) return;
+            e.preventDefault();
+            toggleDescription(tapArea);
+        });
+
+        // In List view: tapping the stage badge reveals the description;
+        // tapping the name (a real link, with an arrow) opens the site -
+        // the two actions are deliberately separate tap targets.
+        function toggleListRow(stageEl) {
+            const row = stageEl.closest('.list-row');
+            const desc = row.querySelector('.list-row-description');
+            const expanded = desc.classList.toggle('expanded');
+            stageEl.setAttribute('aria-expanded', String(expanded));
+        }
+
+        listView.addEventListener('click', (e) => {
+            const stageEl = e.target.closest('.list-row-stage');
+            if (!stageEl) return;
+            toggleListRow(stageEl);
+        });
+
+        listView.addEventListener('keydown', (e) => {
+            const stageEl = e.target.closest('.list-row-stage');
+            if (!stageEl || (e.key !== 'Enter' && e.key !== ' ')) return;
+            e.preventDefault();
+            toggleListRow(stageEl);
         });
 
         // Suggest modal

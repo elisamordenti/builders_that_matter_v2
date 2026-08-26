@@ -18,6 +18,7 @@
 }
 
 body {
+    overflow-x: hidden;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -237,6 +238,12 @@ body {
     color: var(--bg-color);
 }
 
+/* The second toggle button means "Table" on desktop and "List" on mobile -
+   two icons in the same button, swapped purely by media query (see below). */
+.icon-list-mobile {
+    display: none;
+}
+
 .suggest-btn {
     display: flex;
     align-items: center;
@@ -398,16 +405,58 @@ body {
     color: #4c7aab;
 }
 
+/* Description is hidden until tapped/clicked - hover doesn't exist on
+   touchscreens, so grid cards can't rely on it like the table does. */
+.description-tap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
 .startup-description {
+    display: none;
     font-size: 0.875rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin: 0;
     flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+}
+
+.startup-description.expanded {
+    display: block;
+}
+
+.read-more-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.description-tap:hover .read-more-indicator,
+.description-tap:active .read-more-indicator {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.read-more-indicator svg {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.description-tap.expanded .read-more-indicator svg {
+    transform: rotate(180deg);
 }
 
 .startup-meta {
@@ -586,6 +635,100 @@ body {
 
 .table-link-disabled {
     color: var(--border-color);
+}
+
+/* List View - compact, mobile-only "scan everything at once" alternative to
+   the wide data table (see the min-width: 769px backstop that hides it on
+   desktop, and the max-width: 768px backstop that hides the table on mobile). */
+.startups-list {
+    border-top: 1px solid var(--border-color);
+}
+
+.list-row {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.list-row-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 0.25rem;
+}
+
+.list-row-name-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.list-row-name-link svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.list-row-name-link:hover,
+.list-row-name-link:active {
+    color: var(--accent-color);
+}
+
+.list-row-name-link:hover svg,
+.list-row-name-link:active svg {
+    color: var(--accent-color);
+}
+
+.list-row-name-plain {
+    cursor: default;
+}
+
+.list-row-stage {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: filter 0.15s ease;
+}
+
+.list-row-stage:active {
+    filter: brightness(0.92);
+}
+
+.list-row-stage[data-stage="Pre-Seed"] {
+    background: rgba(169, 150, 206, 0.20);
+    color: #8267ab;
+}
+
+.list-row-stage[data-stage="Seed"] {
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
+}
+
+.list-row-stage[data-stage="Series A"] {
+    background: rgba(127, 168, 217, 0.22);
+    color: #4c7aab;
+}
+
+.list-row-description {
+    display: none;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+    padding: 0 0.25rem 0.85rem;
+}
+
+.list-row-description.expanded {
+    display: block;
 }
 
 /* Modal */
@@ -815,6 +958,8 @@ body {
     .header-controls {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
     }
 
     .startups-grid {
@@ -837,6 +982,10 @@ body {
     .startups-table-container {
         overflow-x: scroll;
         -webkit-overflow-scrolling: touch;
+        /* The wide data table isn't used on mobile - the compact List view
+           (#list-view) replaces it. This is a defensive backstop in case JS
+           state and viewport width ever disagree. */
+        display: none !important;
     }
 
     .startups-table {
@@ -851,6 +1000,26 @@ body {
 
     .modal-content {
         padding: 2rem 1.5rem;
+    }
+
+    .view-icon-btn {
+        padding: 0.7rem;
+    }
+
+    .icon-table-desktop {
+        display: none;
+    }
+
+    .icon-list-mobile {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    /* The compact List view is mobile-only - desktop always uses the real
+       data table. Defensive backstop, same reasoning as above. */
+    .startups-list-container {
+        display: none !important;
     }
 }
 
