@@ -263,6 +263,8 @@ body {
 .suggest-btn:hover {
     background: var(--text-secondary);
     border-color: var(--text-secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 /* Filters */
@@ -273,9 +275,10 @@ body {
     flex-wrap: wrap;
     padding: 1rem 1.5rem;
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: 1px solid #c9c9c9;
     border-radius: 8px;
     align-items: end;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .filter-group {
@@ -329,7 +332,7 @@ body {
     text-transform: uppercase;
     font-family: inherit;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
@@ -391,18 +394,18 @@ body {
 }
 
 .startup-stage[data-stage="Pre-Seed"] {
-    background: rgba(169, 150, 206, 0.20);
-    color: #8267ab;
+    background: rgba(170, 140, 220, 0.20);
+    color: #8a72c9;
 }
 
 .startup-stage[data-stage="Seed"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 .startup-stage[data-stage="Series A"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 /* Description is hidden until tapped/clicked - hover doesn't exist on
@@ -606,18 +609,18 @@ body {
 }
 
 .table-stage[data-stage="Pre-Seed"] {
-    background: rgba(169, 150, 206, 0.20);
-    color: #8267ab;
+    background: rgba(170, 140, 220, 0.20);
+    color: #8a72c9;
 }
 
 .table-stage[data-stage="Seed"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 .table-stage[data-stage="Series A"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 .table-link {
@@ -696,7 +699,7 @@ body {
     flex-shrink: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: filter 0.15s ease;
+    transition: filter 0.2s ease;
 }
 
 .list-row-stage:active {
@@ -704,18 +707,18 @@ body {
 }
 
 .list-row-stage[data-stage="Pre-Seed"] {
-    background: rgba(169, 150, 206, 0.20);
-    color: #8267ab;
+    background: rgba(170, 140, 220, 0.20);
+    color: #8a72c9;
 }
 
 .list-row-stage[data-stage="Seed"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 .list-row-stage[data-stage="Series A"] {
-    background: rgba(127, 168, 217, 0.22);
-    color: #4c7aab;
+    background: rgba(120, 175, 230, 0.22);
+    color: #5b93d1;
 }
 
 .list-row-description {
@@ -753,6 +756,7 @@ body {
     width: 90%;
     position: relative;
     border: 1px solid var(--border-color);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
 }
 
 .modal-close {
@@ -1040,5 +1044,58 @@ body {
     .suggest-btn {
         font-size: 0.8125rem;
         padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Custom focus-visible rings - on-brand instead of the browser default */
+.view-icon-btn:focus-visible,
+.suggest-btn:focus-visible,
+.about-button:focus-visible,
+.filter-reset-btn:focus-visible,
+.startup-link:focus-visible,
+.list-row-name-link:focus-visible,
+.list-row-stage:focus-visible,
+.description-tap:focus-visible,
+.footer-linkedin:focus-visible,
+.section-link:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Desktop grid view must NOT replicate the mobile "tap to reveal" pattern -
+   on desktop it should behave like the table: truncated by default, full
+   text on hover (mobile has no hover, hence the tap pattern below stays
+   mobile-only via the base/mobile-first rules earlier in this file). */
+@media (min-width: 769px) {
+    .description-tap {
+        position: relative;
+        cursor: default;
+    }
+
+    .startup-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .read-more-indicator {
+        display: none;
+    }
+
+    .description-tap:hover .startup-description {
+        -webkit-line-clamp: unset;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--card-bg);
+        border: 1.5px solid #9a9a9a;
+        padding: 0.75rem;
+        border-radius: 4px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+        z-index: 10;
+        max-width: 320px;
+        white-space: normal;
     }
 }

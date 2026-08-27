@@ -370,7 +370,7 @@
         // Stage badges: Pre-Seed, Seed and Series A already have colors defined
         // in style.css. Any other stage gets one auto-assigned from this palette,
         // in the same visual format (see .startup-stage / .table-stage in CSS).
-        const STAGE_COLOR_PALETTE = ['#ac7d3f', '#b0637a', '#4a9d92', '#7a9c4f', '#a3785a', '#6b7fb5', '#9c7fb5'];
+        const STAGE_COLOR_PALETTE = ['#b8923a', '#5fa876', '#5aa8c9', '#8fb56a', '#cc9670', '#8792dd', '#b98ac9'];
         const STAGES_STYLED_IN_CSS = ['Pre-Seed', 'Seed', 'Series A'];
 
         const stageColors = {};
@@ -479,6 +479,10 @@
         // on touch). The whole description block is the tap target. Each
         // card's state is independent - opening one never closes another.
         function toggleDescription(tapArea) {
+            // Desktop uses pure CSS :hover for the description reveal (see
+            // the min-width:769px block in style.css) - this toggle is
+            // mobile-only, so it doesn't fight with hover state.
+            if (!isMobile()) return;
             const desc = tapArea.querySelector('.startup-description');
             const indicator = tapArea.querySelector('.read-more-indicator');
             const expanded = tapArea.classList.toggle('expanded');
