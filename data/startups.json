@@ -12,7 +12,7 @@
   {
     "name": "Cellbox Labs",
     "tagline": "",
-    "description": "Cellbox Labs provides a dynamic organ on chip platform aimed at a precise drug discovery. The combination of hardware and software ensured a flexible and efficient experimentation and minimizing manual work typically imposed on researchers.",
+    "description": "Cellbox Labs provides a dynamic organ-on-chip platform aimed at precise drug discovery. The combination of hardware and software ensures flexible and efficient experimentation while minimizing the manual work typically imposed on researchers.",
     "sector": "Biotechnology",
     "stage": "Pre-Seed",
     "year": 2024,
@@ -22,7 +22,7 @@
   {
     "name": "Stealth",
     "tagline": "",
-    "description": "Track the treatment and symptoms of Parkinson's patients, breaking down barriers for those without family support or specialized caregivers. The goal is to optimize the doctor-patient relationship and streamline the treatment journey.",
+    "description": "Tracks the treatment and symptoms of Parkinson's patients, breaking down barriers for those without family support or specialized caregivers. The goal is to optimize the doctor-patient relationship and streamline the treatment journey.",
     "sector": "Healthcare",
     "stage": "No Funding",
     "year": 2024,
@@ -32,7 +32,7 @@
   {
     "name": "Fluid Wire Robotics",
     "tagline": "",
-    "description": "The proprietary design of Fluid Wire Robotics redefines robot construction, making it inherently adaptable to harsh environment. The design makes indeed possible the construction of any sort of innovative fully-electric force-controllable robotic arms with electric motors and sensors located in a sealed remote actuation unit.",
+    "description": "The proprietary design of Fluid Wire Robotics redefines robot construction, making it inherently adaptable to harsh environments. The design makes possible the construction of any sort of innovative fully-electric force-controllable robotic arms with electric motors and sensors located in a sealed remote actuation unit.",
     "sector": "Robotics",
     "stage": "Seed",
     "year": 2024,
@@ -42,7 +42,7 @@
   {
     "name": "Ephos",
     "tagline": "",
-    "description": "Build the essential infrastructure of the future of computing. It designs and manufacturers glass-based photonic chips which significantly reduce signal loss and energy consumption, making them ideal for advanced applications in quantum computing, artificial intelligence.",
+    "description": "Builds the essential infrastructure of the future of computing. It designs and manufactures glass-based photonic chips which significantly reduce signal loss and energy consumption, making them ideal for advanced applications in quantum computing and artificial intelligence.",
     "sector": "Computing",
     "stage": "Seed",
     "year": 2024,
@@ -62,9 +62,9 @@
   {
     "name": "Arsenale (Bio)",
     "tagline": "",
-    "description": "Arsenale Bio is a proprietary, AI powered end-to-end platform making biomanufacturing via precision fermentation viable at industrial scale. Its mission? Lead a new industrial era which transforms how materials, food and energy are produced and co-desig with nature novel bio-solutions.",
+    "description": "Arsenale Bio is a proprietary, AI powered end-to-end platform making biomanufacturing via precision fermentation viable at industrial scale. Its mission? Lead a new industrial era which transforms how materials, food and energy are produced and co-design novel bio-solutions with nature.",
     "sector": "Manufacturing",
-    "stage": "Serie A",
+    "stage": "Series A",
     "year": 2024,
     "location": "Italy",
     "website": "https://arsenale.bio/"
@@ -72,7 +72,7 @@
   {
     "name": "Capsule Corporation",
     "tagline": "",
-    "description": "Capsule Corporation is a cutting-edge provider of water-based propulsion systems specifically for CubeSats and SmallSats, designed to facilitate a broader range of satellite missions and improve space sustainability, expanding satellites lifespan and reducing the de-orbiting risk.",
+    "description": "Capsule Corporation is a cutting-edge provider of water-based propulsion systems specifically for CubeSats and SmallSats, designed to facilitate a broader range of satellite missions and improve space sustainability, extending satellites' lifespan and reducing the de-orbiting risk.",
     "sector": "Aerospace",
     "stage": "Seed",
     "year": 2024,
@@ -102,7 +102,7 @@
   {
     "name": "Lyceum",
     "tagline": "",
-    "description": "Lyceum allows to simplify and optimize the process of training AI models by offering one-click GPU deployment with automatic selection of ideal infrastructure based on your work.",
+    "description": "Lyceum simplifies and optimizes the process of training AI models by offering one-click GPU deployment with automatic selection of ideal infrastructure based on your work.",
     "sector": "AI Infrastructure",
     "stage": "Pre-Seed",
     "year": 2025,
@@ -166,7 +166,7 @@
     "sector": "Healthcare",
     "stage": "Pre-Seed",
     "year": 2025,
-    "location": "London",
+    "location": "United Kingdom",
     "website": "https://www.auryx.ai/"
   },
   {

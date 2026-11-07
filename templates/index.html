@@ -13,6 +13,7 @@
     <div class="container">
         <header class="main-header">
             <h1 class="main-title">builders that matter</h1>
+            <p class="curated-phrase">A curated selection of early stage builders in Europe</p>
         </header>
 
         <nav class="section-navigation">
@@ -20,8 +21,6 @@
             <a href="#thesis" class="section-link" data-section="thesis">Thesis</a>
             <a href="#collection" class="section-link active" data-section="collection">Collection</a>
         </nav>
-
-        <p class="curated-phrase">A curated selection of early stage builders in Europe</p>
 
         <section class="content-section" id="about" style="display: none;">
             <div class="section-content">
@@ -111,7 +110,7 @@
             <!-- Grid View -->
             <div class="startups-grid" id="grid-view" style="display: none;">
                 {% for startup in startups %}
-                <div class="startup-card" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                <div class="startup-card" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}" data-index="{{ loop.index0 }}">
                     <div class="startup-header">
                         <h3 class="startup-name">{{ startup.name }}</h3>
                         <span class="startup-stage" data-stage="{{ startup.stage }}">{{ startup.stage }}</span>
@@ -149,7 +148,7 @@
                         {% for startup in startups %}
                         {% set location_parts = startup.location.split(', ') %}
                         {% set country = location_parts[-1] if location_parts|length > 1 else startup.location %}
-                        <tr data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                        <tr data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}" data-index="{{ loop.index0 }}">
                             <td class="company-cell">
                                 <div class="company-name-link">
                                     <span class="company-name">{{ startup.name }}</span>
@@ -162,7 +161,7 @@
                             <td><span class="table-badge">{{ startup.sector }}</span></td>
                             <td>{{ country }}</td>
                             <td>
-                                <div class="description-cell" title="{{ startup.description }}">
+                                <div class="description-cell">
                                     <span class="description-text">{{ startup.description }}</span>
                                 </div>
                             </td>
@@ -176,7 +175,7 @@
             <div class="startups-list-container" id="list-view" style="display: none;">
                 <div class="startups-list" id="list-body">
                     {% for startup in startups %}
-                    <div class="list-row" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}">
+                    <div class="list-row" data-stage="{{ startup.stage }}" data-sector="{{ startup.sector }}" data-location="{{ startup.location }}" data-name="{{ startup.name }}" data-index="{{ loop.index0 }}">
                         <div class="list-row-main">
                             {% if startup.website %}
                             <a href="{{ startup.website }}" target="_blank" rel="noopener noreferrer" class="list-row-name-link">{{ startup.name }}
@@ -371,7 +370,7 @@
         // in style.css. Any other stage gets one auto-assigned from this palette,
         // in the same visual format (see .startup-stage / .table-stage in CSS).
         const STAGE_COLOR_PALETTE = ['#b8923a', '#5fa876', '#5aa8c9', '#8fb56a', '#cc9670', '#8792dd', '#b98ac9'];
-        const STAGES_STYLED_IN_CSS = ['Pre-Seed', 'Seed', 'Series A'];
+        const STAGES_STYLED_IN_CSS = ['Pre-Seed', 'Seed', 'Series A', 'No Funding'];
 
         const stageColors = {};
         let paletteIndex = 0;
@@ -398,13 +397,11 @@
             }
         });
 
-        // Build row map once on page load (when all rows exist in DOM) - needed for table filter/sort
+        // Build row map once on page load (when all rows exist in DOM) - needed for table filter/sort.
+        // Keyed by position, not name: two companies can share a name (e.g. "Stealth").
         const fullRowMap = new Map();
         document.querySelectorAll('#table-body tr').forEach(row => {
-            const name = row.getAttribute('data-name');
-            if (name) {
-                fullRowMap.set(name, row.cloneNode(true));
-            }
+            fullRowMap.set(Number(row.dataset.index), row.cloneNode(true));
         });
 
         function filterAndSort() {
@@ -435,27 +432,23 @@
             // Update count
             document.getElementById('startup-count').textContent = filteredStartups.length;
 
+            const visibleIndexes = new Set(filteredStartups.map(s => startups.indexOf(s)));
+
             // Update grid view
-            const gridCards = document.querySelectorAll('.startup-card');
-            gridCards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                const isVisible = filteredStartups.some(s => s.name === name);
-                card.style.display = isVisible ? 'flex' : 'none';
+            document.querySelectorAll('.startup-card').forEach(card => {
+                card.style.display = visibleIndexes.has(Number(card.dataset.index)) ? 'flex' : 'none';
             });
 
             // Update list view (mobile) - same simple show/hide as grid, no reordering
-            const listRows = document.querySelectorAll('.list-row');
-            listRows.forEach(row => {
-                const name = row.getAttribute('data-name');
-                const isVisible = filteredStartups.some(s => s.name === name);
-                row.style.display = isVisible ? 'block' : 'none';
+            document.querySelectorAll('.list-row').forEach(row => {
+                row.style.display = visibleIndexes.has(Number(row.dataset.index)) ? 'block' : 'none';
             });
 
             // Update table view - reorder rows based on sorted order (use fullRowMap built at page load)
             const tableBody = document.getElementById('table-body');
             tableBody.innerHTML = '';
             filteredStartups.forEach(startup => {
-                const row = fullRowMap.get(startup.name);
+                const row = fullRowMap.get(startups.indexOf(startup));
                 if (row) {
                     tableBody.appendChild(row);
                 }
